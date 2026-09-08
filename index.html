@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nine Days: History 15 Sep, Business 16 Sep</title>
+<meta name="description" content="Library study plan and chapter tracker for two oral exams at UNIVPM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF8;
+  --card:#FFFFFF;
+  --ink:#1C1F24;
+  --muted:#6C717B;
+  --line:#E5E1D9;
+  --hist:#2E6B4F;
+  --hist-soft:#E8F0EB;
+  --biz:#2B4A8B;
+  --biz-soft:#E7ECF7;
+  --now:#A9671F;
+  --now-soft:#F7EEE2;
+  --radius:10px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px 72px}
+
+/* ---------- header ---------- */
+header{padding:34px 0 22px;border-bottom:1px solid var(--line)}
+.kicker{font-size:13px;color:var(--muted);margin:0 0 6px}
+h1{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:700;
+  font-size:clamp(30px,5vw,44px);
+  line-height:1.05;
+  letter-spacing:-.015em;
+  margin:0 0 18px;
+  max-width:16ch;
+}
+.counts{display:flex;gap:14px;flex-wrap:wrap}
+.count{
+  flex:1 1 240px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  position:relative;
+  overflow:hidden;
+}
+.count::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+.count.h::before{background:var(--hist)}
+.count.b::before{background:var(--biz)}
+.count .name{font-size:13px;color:var(--muted);margin-bottom:2px;padding-right:92px;min-height:36px}
+.count .when{font-family:"Fraunces",Georgia,serif;font-size:19px;font-weight:500;padding-right:92px}
+.count .left{
+  font-family:"Fraunces",Georgia,serif;
+  font-size:30px;font-weight:700;line-height:1;
+  position:absolute;right:16px;top:14px;
+}
+.count .left small{font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:500;color:var(--muted);display:block;text-align:right;margin-top:3px}
+.bar{height:6px;background:#EFEDE7;border-radius:3px;margin-top:12px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:3px;transition:width .35s ease}
+.count.h .bar i{background:var(--hist)}
+.count.b .bar i{background:var(--biz)}
+.count .ratio{font-size:12.5px;color:var(--muted);margin-top:7px}
+
+/* ---------- tabs ---------- */
+nav.tabs{display:flex;gap:22px;margin:26px 0 20px;border-bottom:1px solid var(--line)}
+nav.tabs button{
+  background:none;border:0;padding:0 0 11px;cursor:pointer;
+  font-family:inherit;font-size:15px;color:var(--muted);
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+nav.tabs button:focus-visible{outline:2px solid var(--biz);outline-offset:3px}
+
+/* ---------- day rail ---------- */
+.rail{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:22px;scrollbar-width:thin}
+.day{
+  flex:0 0 auto;min-width:88px;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:9px 11px 10px;cursor:pointer;font-family:inherit;color:var(--ink);
+}
+.day .dow{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap}
+.day .num{display:block;font-family:"Fraunces",Georgia,serif;font-size:22px;font-weight:700;line-height:1.1}
+.day .dot{display:block;height:3px;border-radius:2px;background:#EFEDE7;margin-top:8px;overflow:hidden}
+.day .dot i{display:block;height:100%;background:var(--ink);width:0;transition:width .3s}
+.day[aria-current="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.day.today{background:var(--now-soft);border-color:#E8D7BE}
+.day.exam .num{color:var(--now)}
+.day:focus-visible{outline:2px solid var(--biz);outline-offset:2px}
+
+/* ---------- day header ---------- */
+.dayhead{margin-bottom:18px}
+.dayhead h2{font-family:"Fraunces",Georgia,serif;font-size:26px;font-weight:700;margin:0 0 4px}
+.dayhead p{margin:0;color:var(--muted);font-size:14px;max-width:62ch}
+
+/* ---------- timeline ---------- */
+.tl{position:relative;padding-left:74px}
+.tl::before{content:"";position:absolute;left:56px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.slot{position:relative;margin-bottom:14px}
+.slot .clock{
+  position:absolute;left:-74px;top:14px;width:52px;text-align:right;
+  font-family:"Fraunces",Georgia,serif;font-size:14px;font-weight:500;line-height:1.35;
+}
+.slot .clock span{display:block;font-family:"IBM Plex Sans",sans-serif;font-size:11.5px;color:var(--muted);font-weight:400}
+.slot::before{
+  content:"";position:absolute;left:-22px;top:20px;width:9px;height:9px;border-radius:50%;
+  background:var(--card);border:2px solid var(--line);
+}
+.slot.h::before{border-color:var(--hist)}
+.slot.b::before{border-color:var(--biz)}
+.slot.x::before{border-color:var(--now)}
+.block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px 8px}
+.slot.h .block{border-left:3px solid var(--hist)}
+.slot.b .block{border-left:3px solid var(--biz)}
+.slot.x .block{border-left:3px solid var(--now);background:var(--now-soft)}
+.block h3{margin:0 0 9px;font-size:14.5px;font-weight:600}
+.block .tag{font-size:11.5px;color:var(--muted);font-weight:400;margin-left:6px}
+
+/* break rows */
+.break{
+  position:relative;margin:0 0 14px;padding:9px 15px;
+  border:1px dashed var(--line);border-radius:var(--radius);
+  color:var(--muted);font-size:13.5px;background:transparent;
+}
+.break .clock{position:absolute;left:-74px;top:10px;width:52px;text-align:right;font-family:"Fraunces",Georgia,serif;font-size:14px}
+
+/* ---------- task rows ---------- */
+.task{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-top:1px solid #F1EEE8}
+.task:first-of-type{border-top:0}
+.task input{
+  appearance:none;-webkit-appearance:none;flex:0 0 auto;
+  width:17px;height:17px;margin:2px 0 0;border:1.5px solid #C9C4B8;border-radius:4px;
+  background:var(--card);cursor:pointer;position:relative;
+}
+.task input:hover{border-color:var(--ink)}
+.task input:focus-visible{outline:2px solid var(--biz);outline-offset:2px}
+.task input:checked{border-color:transparent}
+.task.h input:checked{background:var(--hist)}
+.task.b input:checked{background:var(--biz)}
+.task.x input:checked{background:var(--now)}
+.task input:checked::after{
+  content:"";position:absolute;left:5px;top:1.5px;width:4px;height:9px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+.task label{cursor:pointer;font-size:14px;flex:1}
+.task .code{
+  font-family:"Fraunces",Georgia,serif;font-size:12.5px;font-weight:700;
+  padding:1px 6px;border-radius:4px;margin-right:7px;white-space:nowrap;
+}
+.task.h .code{background:var(--hist-soft);color:var(--hist)}
+.task.b .code{background:var(--biz-soft);color:var(--biz)}
+.task.x .code{background:#EFE6D8;color:var(--now)}
+.task input:checked ~ label{color:var(--muted);text-decoration:line-through;text-decoration-color:#C9C4B8}
+
+/* ---------- chapters view ---------- */
+.group{margin-bottom:30px}
+.group .ghead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.group h2{font-family:"Fraunces",Georgia,serif;font-size:21px;font-weight:700;margin:0}
+.group .gcount{font-size:13px;color:var(--muted)}
+.group .bar{margin:0 0 12px}
+.group.h .bar i{background:var(--hist)}
+.group.b .bar i{background:var(--biz)}
+.list{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:4px 15px}
+.list .task{padding:8px 0}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;font-size:13px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+footer button{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-decoration:underline;cursor:pointer}
+footer button:hover{color:var(--ink)}
+.hidden{display:none}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 60px}
+  .tl{padding-left:58px}
+  .tl::before{left:44px}
+  .slot .clock,.break .clock{left:-58px;width:40px;font-size:13px}
+  .slot::before{left:-18px}
+  .count .left{font-size:25px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <p class="kicker">UNIVPM · two oral exams, nine days</p>
+  <h1>Library plan and chapter tracker</h1>
+  <div class="counts">
+    <div class="count h">
+      <div class="name">Economic History of Technological Change</div>
+      <div class="when">Tuesday 15 September</div>
+      <div class="left" id="h-left">–<small>days</small></div>
+      <div class="bar"><i id="h-bar"></i></div>
+      <div class="ratio" id="h-ratio"></div>
+    </div>
+    <div class="count b">
+      <div class="name">Business Management and Digital Applications</div>
+      <div class="when">Wednesday 16 September</div>
+      <div class="left" id="b-left">–<small>days</small></div>
+      <div class="bar"><i id="b-bar"></i></div>
+      <div class="ratio" id="b-ratio"></div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button id="tab-plan" role="tab" aria-selected="true" aria-controls="view-plan">Daily plan</button>
+  <button id="tab-ch" role="tab" aria-selected="false" aria-controls="view-ch">All chapters</button>
+</nav>
+
+<section id="view-plan" role="tabpanel" aria-labelledby="tab-plan">
+  <div class="rail" id="rail"></div>
+  <div class="dayhead">
+    <h2 id="d-title"></h2>
+    <p id="d-note"></p>
+  </div>
+  <div class="tl" id="timeline"></div>
+</section>
+
+<section id="view-ch" class="hidden" role="tabpanel" aria-labelledby="tab-ch">
+  <div id="groups"></div>
+</section>
+
+<footer>
+  <span id="saved">Progress saves in this browser.</span>
+  <button id="export">Save a backup file</button>
+  <button id="import">Load a backup file</button>
+  <button id="reset">Clear all ticks</button>
+  <input type="file" id="file" accept="application/json" class="hidden">
+</footer>
+
+</div>
+
+<script>
+/* ============ chapter data ============ */
+const HIST = [
+  ['h1','Course framework and the energetic approach','Ch 1'],
+  ['h2','The Neolithic Revolution and its causal chain','Ch 2'],
+  ['h3','Diamond: ultimate and proximate causes','Ch 3'],
+  ['h4','Agriculture: water regimes and the three rotations','Ch 4'],
+  ['h5','The manor system and serfdom','Ch 5 + 5-bis'],
+  ['h6','Urban revival and medieval trade','Ch 6'],
+  ['h7','Ships and navigation, cog to ship of the line','Ch 7'],
+  ['h8','Mills, the preindustrial universal machine','Ch 8'],
+  ['h9','Textile technology and the spinning bottleneck','Ch 9'],
+  ['h10','The four preindustrial manufacturing modes','Ch 10'],
+  ['h11','Mining and metallurgy before steam','Ch 10-bis'],
+  ['h12','Coal, iron and steam: the whole chain','Ch 11'],
+  ['h13','Why Britain first (Cameron)','Ch 12'],
+  ['h14','Regional variation and the human cost','Ch 12-bis, 12-ter'],
+  ['h15','The Second Industrial Revolution system','Ch 13'],
+  ['h16','2IR technology clusters with dates','Ch 14'],
+  ['h17','Taylor, Ford and Fordism','Ch 15'],
+  ['h18','The first globalisation, 1870 to 1914','Ch 15-bis'],
+  ['h19','Mokyr: macro and microinventions','Ch 16 + 19-bis'],
+  ['h20','Cameron: the full arc of the book','Ch 17 + 20-bis'],
+  ['h21','McNeil: technology before science','Ch 18 + 21-bis'],
+  ['h22','Diamond: the chapters you might be asked','Ch 19 + 22-bis'],
+  ['h23','The six big themes that connect everything','Ch 20'],
+  ['h24','Glossary, tick every term you can define','Ch 21'],
+  ['h25','The 20 model answers, out loud','Ch 22'],
+  ['h26','Ten rapid-fire answers and the mega summary','Ch 23 + 24'],
+  ['h27','The five likely question chains','Ch 25']
+];
+const PERNA = [
+  ['p1','Taking risks and making profits in a dynamic business environment','Ch 1'],
+  ['p2','Understanding economics and how it affects business','Ch 2'],
+  ['p3','Doing business in global markets','Ch 3'],
+  ['p4','How to form a business','Ch 4'],
+  ['p5','Entrepreneurship and starting a small business','Ch 5'],
+  ['p6','Management and leadership','Ch 6'],
+  ['p7','Structuring organizations for today\u2019s challenges','Ch 7'],
+  ['p8','Strategic management: creating competitive advantages','Ch 8'],
+  ['p9','Business-level strategy: creating and sustaining advantage','Ch 9'],
+  ['p10','Production and operations management','Ch 10'],
+  ['p11','Purchasing and supply management','Ch 11'],
+  ['p12','Sources of innovation','Ch 12'],
+  ['p13','Types and patterns of innovation','Ch 13'],
+  ['p14','Using technology to manage information','Ch 14']
+];
+const ANC = [
+  ['a1','Digital technologies and the digital revolution','Ch 1'],
+  ['a2','Web evolution, social media and Web 3.0','Ch 2'],
+  ['a3','The mobile revolution','Ch 3'],
+  ['a4','Big data and big data analytics','Ch 4'],
+  ['a5','Smart factory, Industry 4.0 and Operator 4.0','Ch 5'],
+  ['a6','Internet of things and smart objects','Ch 6'],
+  ['a7','Artificial intelligence','Ch 7'],
+  ['a8','Business model design and the business model canvas','Ch 8']
+];
+const TITLE = {};
+[['H',HIST],['P',PERNA],['A',ANC]].forEach(([,arr])=>arr.forEach(([id,t,ref])=>TITLE[id]={t,ref}));
+const CODE = id => id[0]==='h' ? 'H'+id.slice(1) : id[0]==='p' ? 'P'+id.slice(1) : 'A'+id.slice(1);
+const KIND = id => id[0]==='h' ? 'h' : 'b';
+
+/* ============ the nine days ============ */
+const T = (id,text,kind)=>({id,text,kind:kind||'x'});
+const C = id => ({ref:id});
+
+const PLAN = [
+{date:'2026-09-08',dow:'Tue',label:'Tuesday 8 September',note:'Half a day is left, so treat tonight as the warm-up: learn how the two guides are built, then read the first Perna chapter properly.',blocks:[
+  {from:'20:00',to:'21:00',kind:'b',title:'How the guides work',items:[
+    T('s1','Read the how-to-use pages of Part A and Part B: definition boxes, answer skeletons, cross-links','b'),
+    T('s2','Open the History guide contents and see the six Parts','h')]},
+  {from:'21:00',to:'22:00',kind:'b',title:'First Perna chapter',items:[C('p1')]}
+]},
+
+{date:'2026-09-09',dow:'Wed',label:'Wednesday 9 September',note:'The library rhythm starts here and repeats until Saturday: Perna in the morning, Ancillai after lunch, History in the last block.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, first read',items:[C('p2')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, first read',items:[C('p3'),C('p4')]},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside. Do not read in this gap, the afternoon block depends on it.'},
+  {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a1')]},
+  {from:'17:30',to:'19:30',kind:'h',title:'History, Part I',items:[C('h1'),C('h2'),C('h3')]},
+  {from:'20:30',to:'21:15',kind:'x',title:'At home, out loud',items:[
+    T('r09','Say the energetic approach and the Neolithic chain with no notes')]}
+]},
+
+{date:'2026-09-10',dow:'Thu',label:'Thursday 10 September',note:'Perna 5 to 7 are the management block, they carry a lot of oral questions. Give them your freshest hours.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, first read',items:[C('p5')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, first read',items:[C('p6'),C('p7')]},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
+  {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a2'),C('a3')]},
+  {from:'17:30',to:'19:30',kind:'h',title:'History, Part I finished and Part II started',items:[C('h4'),C('h5'),C('h6'),C('h7')]},
+  {from:'20:30',to:'21:15',kind:'x',title:'At home, out loud',items:[
+    T('r10','Say the three rotation systems and the manor exchange with no notes')]}
+]},
+
+{date:'2026-09-11',dow:'Fri',label:'Friday 11 September',note:'Perna 8 and 9 are the two longest chapters in the guide. Two blocks each is normal, do not rush them.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, strategy',items:[C('p8')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, strategy',items:[C('p9')]},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
+  {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a4'),C('a5')]},
+  {from:'17:30',to:'19:30',kind:'h',title:'History, Part II',items:[C('h8'),C('h9'),C('h10'),C('h11')]},
+  {from:'20:30',to:'21:15',kind:'x',title:'At home, out loud',items:[
+    T('r11','Say why the mill is the universal machine, and the textile chain from Kay to the factory')]}
+]},
+
+{date:'2026-09-12',dow:'Sat',label:'Saturday 12 September',note:'Today you finish the operations and innovation half of Perna, and reach the heart of History: coal, iron and steam.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, operations',items:[C('p10'),C('p11')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, innovation',items:[C('p12')]},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
+  {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a6'),C('a7')]},
+  {from:'17:30',to:'19:30',kind:'h',title:'History, Part III',items:[C('h12'),C('h13'),C('h14')]},
+  {from:'20:30',to:'21:15',kind:'x',title:'At home, out loud',items:[
+    T('r12','Say the chain: cannons, timber crisis, coke 1709, Newcomen 1712, Watt 1769, Cort 1784, Trevithick 1806, Rocket 1829')]}
+]},
+
+{date:'2026-09-13',dow:'Sun',label:'Sunday 13 September',note:'Last Business day before the History push. Everything in Business must be read once by tonight, because after today you only get short revision windows.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, last chapters',items:[C('p13'),C('p14')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, fast recall',items:[
+    T('r13a','Go down the 14 chapter titles and say the core idea of each in two sentences','b'),
+    T('r13b','Mark the three Perna chapters that felt weakest, they are your Tuesday evening job','b')]},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
+  {from:'15:30',to:'17:15',kind:'b',title:'Ancillai finished',items:[C('a8'),
+    T('r13c','Read all 8 answer skeletons in a row','b')]},
+  {from:'17:30',to:'19:30',kind:'h',title:'History, Part IV',items:[C('h15'),C('h16'),C('h17'),C('h18')]},
+  {from:'20:30',to:'21:15',kind:'x',title:'At home, out loud',items:[
+    T('r13d','Draw the 2IR diagram from memory on a blank sheet')]}
+]},
+
+{date:'2026-09-14',dow:'Mon',label:'Monday 14 September',note:'Full History day. No Business at all today. By tonight you should be able to tell the whole story from hunter-gatherers to Fordism without opening the guide.',exam:false,blocks:[
+  {from:'10:00',to:'11:30',kind:'h',title:'The four books',items:[C('h19'),C('h20')]},
+  {from:'11:45',to:'13:30',kind:'h',title:'The four books and the themes',items:[C('h21'),C('h22'),C('h23')]},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside. Sleep is the priority tonight, so keep the afternoon calm.'},
+  {from:'15:30',to:'17:15',kind:'h',title:'Vocabulary and model answers',items:[C('h24'),C('h25')]},
+  {from:'17:30',to:'19:30',kind:'h',title:'Rapid fire and question chains',items:[C('h26'),C('h27')]},
+  {from:'20:30',to:'21:30',kind:'x',title:'At home, the full run',items:[
+    T('r14','Tell the whole story out loud, start to finish, one date and one name per topic'),
+    T('r14b','In bed by 23:00')]}
+]},
+
+{date:'2026-09-15',dow:'Tue',label:'Tuesday 15 September, History exam',note:'Nothing new this morning. After the exam, rest two hours, then move everything to Business. Adjust the times if your call time is different.',exam:true,blocks:[
+  {from:'07:30',to:'09:00',kind:'h',title:'Last look, nothing new',items:[
+    T('e15a','Read the one-page mega summary','h'),
+    T('e15b','Read the five question chains','h')]},
+  {from:'09:00',to:'13:00',kind:'x',title:'History oral exam',items:[T('e15c','Exam done')]},
+  {lunch:true,from:'13:00',to:'15:30',text:'Eat, rest, no studying. You have one more exam and it needs a fresh head.'},
+  {from:'15:30',to:'17:15',kind:'b',title:'Ancillai, she examines first',items:[
+    T('e15d','Say all 8 answer skeletons out loud, canvas last','b')]},
+  {from:'17:30',to:'19:30',kind:'b',title:'Perna, the heavy chapters',items:[
+    T('e15e','Chapters 6, 7, 8 and 9: management, structure, strategy','b')]},
+  {from:'20:30',to:'21:30',kind:'b',title:'At home',items:[
+    T('e15f','Chapters 12, 13 and 14: innovation and information','b'),
+    T('e15g','Your three weakest chapters from Sunday','b')]}
+]},
+
+{date:'2026-09-16',dow:'Wed',label:'Wednesday 16 September, Business exam',note:'Chiara examines first and passes you to Andrea, so start the morning with her half. Skeletons only, no new reading.',exam:true,blocks:[
+  {from:'07:00',to:'08:30',kind:'b',title:'Ancillai skeletons',items:[
+    T('e16a','All 8 skeletons out loud, one minute each','b'),
+    T('e16b','Cross-links between the two halves','b')]},
+  {from:'08:30',to:'09:30',kind:'b',title:'Perna, final pass',items:[
+    T('e16c','Chapter titles down the list, one sentence each','b')]},
+  {from:'09:30',to:'13:00',kind:'x',title:'Business oral exam',items:[T('e16d','Both halves done')]}
+]}
+];
+
+/* ============ state ============ */
+const KEY='exam-plan-2026-09';
+const store=(()=>{try{localStorage.setItem('__t','1');localStorage.removeItem('__t');return localStorage;}
+  catch(e){const m={};return{getItem:k=>k in m?m[k]:null,setItem:(k,v)=>{m[k]=v},removeItem:k=>{delete m[k]}};}})();
+let done={};
+try{done=JSON.parse(store.getItem(KEY)||'{}')||{}}catch(e){done={}}
+const save=()=>{try{store.setItem(KEY,JSON.stringify(done))}catch(e){}};
+
+const todayISO=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+let current=Math.max(0,PLAN.findIndex(d=>d.date>=todayISO()));
+
+/* ============ render helpers ============ */
+function taskRow(it){
+  const isRef=!!it.ref;
+  const id=isRef?it.ref:it.id;
+  const kind=isRef?KIND(it.ref):(it.kind||'x');
+  const code=isRef?CODE(it.ref):'';
+  const text=isRef?TITLE[it.ref].t:it.text;
+  const ref=isRef?TITLE[it.ref].ref:'';
+  const uid='t_'+id+'_'+Math.random().toString(36).slice(2,7);
+  return `<div class="task ${kind}">
+    <input type="checkbox" id="${uid}" data-id="${id}" ${done[id]?'checked':''}>
+    <label for="${uid}">${code?`<span class="code">${code}</span>`:''}${text}${ref?` <span class="tag">${ref}</span>`:''}</label>
+  </div>`;
+}
+
+function renderRail(){
+  document.getElementById('rail').innerHTML=PLAN.map((d,i)=>{
+    const ids=dayIds(d);
+    const pct=ids.length?Math.round(100*ids.filter(x=>done[x]).length/ids.length):0;
+    const cls=['day',d.date===todayISO()?'today':'',d.exam?'exam':''].filter(Boolean).join(' ');
+    return `<button class="${cls}" data-i="${i}" aria-current="${i===current}">
+      <span class="dow">${d.dow}${d.exam?' · exam':''}</span>
+      <span class="num">${Number(d.date.slice(8))}</span>
+      <span class="dot"><i style="width:${pct}%"></i></span>
+    </button>`;
+  }).join('');
+}
+
+function dayIds(d){
+  const out=[];
+  d.blocks.forEach(b=>{if(!b.lunch)(b.items||[]).forEach(it=>out.push(it.ref||it.id))});
+  return out;
+}
+
+function renderDay(){
+  const d=PLAN[current];
+  document.getElementById('d-title').textContent=d.label;
+  document.getElementById('d-note').textContent=d.note;
+  document.getElementById('timeline').innerHTML=d.blocks.map(b=>{
+    if(b.lunch) return `<div class="break"><span class="clock">${b.from}</span>${b.text}</div>`;
+    return `<div class="slot ${b.kind}">
+      <div class="clock">${b.from}<span>to ${b.to}</span></div>
+      <div class="block">
+        <h3>${b.title}</h3>
+        ${(b.items||[]).map(taskRow).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderGroups(){
+  const g=[
+    ['h','History, 27 topics',HIST],
+    ['b','Perna, 14 chapters',PERNA],
+    ['b','Ancillai, 8 chapters',ANC]
+  ];
+  document.getElementById('groups').innerHTML=g.map(([k,name,arr])=>{
+    const n=arr.filter(([id])=>done[id]).length;
+    const pct=Math.round(100*n/arr.length);
+    return `<div class="group ${k}">
+      <div class="ghead"><h2>${name}</h2><span class="gcount">${n} of ${arr.length} done</span></div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="list">${arr.map(([id])=>taskRow({ref:id})).join('')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTop(){
+  const hN=HIST.filter(([id])=>done[id]).length;
+  const bAll=PERNA.concat(ANC);
+  const bN=bAll.filter(([id])=>done[id]).length;
+  document.getElementById('h-bar').style.width=(100*hN/HIST.length)+'%';
+  document.getElementById('b-bar').style.width=(100*bN/bAll.length)+'%';
+  document.getElementById('h-ratio').textContent=`${hN} of ${HIST.length} topics covered`;
+  document.getElementById('b-ratio').textContent=`${bN} of ${bAll.length} chapters covered`;
+  const days=iso=>{
+    const now=new Date(); const ex=new Date(iso+'T09:00:00');
+    return Math.max(0,Math.ceil((ex-now)/86400000));
+  };
+  const set=(el,v)=>{document.getElementById(el).innerHTML=v+'<small>'+(v===1?'day':'days')+' left</small>'};
+  set('h-left',days('2026-09-15'));
+  set('b-left',days('2026-09-16'));
+}
+
+function renderAll(){renderTop();renderRail();renderDay();renderGroups();}
+
+/* ============ events ============ */
+document.addEventListener('change',e=>{
+  const cb=e.target.closest('input[type=checkbox][data-id]');
+  if(!cb)return;
+  const id=cb.dataset.id;
+  if(cb.checked)done[id]=1;else delete done[id];
+  save();renderTop();renderRail();
+  document.querySelectorAll(`input[data-id="${id}"]`).forEach(o=>o.checked=cb.checked);
+  const g=document.getElementById('groups');
+  if(!g.parentElement.classList.contains('hidden'))renderGroups();
+});
+
+document.getElementById('rail').addEventListener('click',e=>{
+  const b=e.target.closest('.day'); if(!b)return;
+  current=Number(b.dataset.i); renderRail(); renderDay();
+});
+
+const tabs=[['tab-plan','view-plan'],['tab-ch','view-ch']];
+tabs.forEach(([t,v])=>document.getElementById(t).addEventListener('click',()=>{
+  tabs.forEach(([tt,vv])=>{
+    const on=tt===t;
+    document.getElementById(tt).setAttribute('aria-selected',on);
+    document.getElementById(vv).classList.toggle('hidden',!on);
+  });
+  if(v==='view-ch')renderGroups();
+}));
+
+document.getElementById('reset').addEventListener('click',()=>{
+  if(!confirm('Clear every tick? This cannot be undone.'))return;
+  done={};save();renderAll();
+});
+document.getElementById('export').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(done)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='exam-progress.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+});
+document.getElementById('import').addEventListener('click',()=>document.getElementById('file').click());
+document.getElementById('file').addEventListener('change',e=>{
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{done=JSON.parse(r.result)||{};save();renderAll();}
+    catch(err){document.getElementById('saved').textContent='That file could not be read. Pick the exam-progress.json you saved earlier.';}};
+  r.readAsText(f);
+});
+
+renderAll();
+</script>
+</body>
+</html>
