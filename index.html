@@ -36,7 +36,7 @@ body{
 .wrap{max-width:1040px;margin:0 auto;padding:0 20px 72px}
 
 /* ---------- header ---------- */
-header{padding:34px 0 22px;border-bottom:1px solid var(--line)}
+header{padding:30px 0 20px;border-bottom:1px solid var(--line)}
 .kicker{font-size:13px;color:var(--muted);margin:0 0 6px}
 h1{
   font-family:"Fraunces",Georgia,serif;
@@ -53,23 +53,33 @@ h1{
   background:var(--card);
   border:1px solid var(--line);
   border-radius:var(--radius);
-  padding:14px 16px;
+  padding:13px 15px;
   position:relative;
   overflow:hidden;
 }
 .count::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
 .count.h::before{background:var(--hist)}
 .count.b::before{background:var(--biz)}
-.count .name{font-size:13px;color:var(--muted);margin-bottom:2px;padding-right:92px;min-height:36px}
-.count .when{font-family:"Fraunces",Georgia,serif;font-size:19px;font-weight:500;padding-right:92px}
+.count .name{font-size:12.5px;color:var(--muted);margin-bottom:2px;padding-right:86px;min-height:34px}
+.count .when{font-family:"Fraunces",Georgia,serif;font-size:17px;font-weight:500;padding-right:86px}
 .count .left{
-  font-family:"Fraunces",Georgia,serif;
-  font-size:30px;font-weight:700;line-height:1;
-  position:absolute;right:16px;top:14px;
+  position:absolute;right:14px;top:13px;
+  font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:600;
+  padding:4px 9px;border-radius:20px;line-height:1.15;text-align:center;
 }
-.count .left small{font-family:"IBM Plex Sans",sans-serif;font-size:11px;font-weight:500;color:var(--muted);display:block;text-align:right;margin-top:3px}
-.bar{height:6px;background:#EFEDE7;border-radius:3px;margin-top:12px;overflow:hidden}
-.bar i{display:block;height:100%;width:0;border-radius:3px;transition:width .35s ease}
+.count.h .left{background:var(--hist-soft);color:var(--hist)}
+.count.b .left{background:var(--biz-soft);color:var(--biz)}
+.count .left small{display:block;font-size:10px;font-weight:500;opacity:.75}
+.big{
+  font-family:"Fraunces",Georgia,serif;font-weight:700;
+  font-size:34px;line-height:1;letter-spacing:-.015em;
+  margin:10px 0 0;display:block;
+}
+.count.h .big{color:var(--hist)}
+.count.b .big{color:var(--biz)}
+.big em{font-style:normal;font-size:.5em;margin-left:1px}
+.bar{height:8px;background:#EDEAE3;border-radius:6px;margin-top:9px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:6px;transition:width .4s cubic-bezier(.2,.7,.3,1)}
 .count.h .bar i{background:var(--hist)}
 .count.b .bar i{background:var(--biz)}
 .count .ratio{font-size:12.5px;color:var(--muted);margin-top:7px}
@@ -93,8 +103,8 @@ nav.tabs button:focus-visible{outline:2px solid var(--biz);outline-offset:3px}
 }
 .day .dow{display:block;font-size:11.5px;color:var(--muted);white-space:nowrap}
 .day .num{display:block;font-family:"Fraunces",Georgia,serif;font-size:22px;font-weight:700;line-height:1.1}
-.day .dot{display:block;height:3px;border-radius:2px;background:#EFEDE7;margin-top:8px;overflow:hidden}
-.day .dot i{display:block;height:100%;background:var(--ink);width:0;transition:width .3s}
+.day .dot{display:block;height:4px;border-radius:3px;background:#EDEAE3;margin-top:8px;overflow:hidden}
+.day .dot i{display:block;height:100%;background:var(--now);width:0;transition:width .3s}
 .day[aria-current="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .day.today{background:var(--now-soft);border-color:#E8D7BE}
 .day.exam .num{color:var(--now)}
@@ -126,6 +136,22 @@ nav.tabs button:focus-visible{outline:2px solid var(--biz);outline-offset:3px}
 .slot.b .block{border-left:3px solid var(--biz)}
 .slot.x .block{border-left:3px solid var(--now);background:var(--now-soft)}
 .block h3{margin:0 0 9px;font-size:14.5px;font-weight:600}
+.slot.h .block h3{color:var(--hist)}
+.slot.b .block h3{color:var(--biz)}
+.slot.x .block h3{color:var(--now)}
+.subj{font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;margin-right:8px;vertical-align:1px}
+.slot.h .subj{background:var(--hist-soft);color:var(--hist)}
+.slot.b .subj{background:var(--biz-soft);color:var(--biz)}
+.slot.x .subj{background:#EFE6D8;color:var(--now)}
+
+.dayhead .meter{
+  display:inline-block;margin-left:11px;vertical-align:4px;
+  font-family:"Fraunces",Georgia,serif;font-size:15px;font-weight:700;
+  padding:2px 9px;border-radius:20px;background:var(--now-soft);color:var(--now);
+}
+.dayhead .meter.full{background:var(--hist-soft);color:var(--hist)}
+#sync.on{color:var(--hist)}
+#sync.off{color:#A03A2B}
 .block .tag{font-size:11.5px;color:var(--muted);font-weight:400;margin-left:6px}
 
 /* break rows */
@@ -169,6 +195,9 @@ nav.tabs button:focus-visible{outline:2px solid var(--biz);outline-offset:3px}
 .group .ghead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
 .group h2{font-family:"Fraunces",Georgia,serif;font-size:21px;font-weight:700;margin:0}
 .group .gcount{font-size:13px;color:var(--muted)}
+.group .gpct{font-family:"Fraunces",Georgia,serif;font-size:18px;font-weight:700;margin-left:9px}
+.group.h .gpct{color:var(--hist)}
+.group.b .gpct{color:var(--biz)}
 .group .bar{margin:0 0 12px}
 .group.h .bar i{background:var(--hist)}
 .group.b .bar i{background:var(--biz)}
@@ -187,7 +216,7 @@ footer button:hover{color:var(--ink)}
   .tl::before{left:44px}
   .slot .clock,.break .clock{left:-58px;width:40px;font-size:13px}
   .slot::before{left:-18px}
-  .count .left{font-size:25px}
+
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -202,14 +231,16 @@ footer button:hover{color:var(--ink)}
     <div class="count h">
       <div class="name">Economic History of Technological Change</div>
       <div class="when">Tuesday 15 September</div>
-      <div class="left" id="h-left">–<small>days</small></div>
+      <div class="left" id="h-left">–<small>days left</small></div>
+      <span class="big" id="h-big">0<em>%</em></span>
       <div class="bar"><i id="h-bar"></i></div>
       <div class="ratio" id="h-ratio"></div>
     </div>
     <div class="count b">
       <div class="name">Business Management and Digital Applications</div>
       <div class="when">Wednesday 16 September</div>
-      <div class="left" id="b-left">–<small>days</small></div>
+      <div class="left" id="b-left">–<small>days left</small></div>
+      <span class="big" id="b-big">0<em>%</em></span>
       <div class="bar"><i id="b-bar"></i></div>
       <div class="ratio" id="b-ratio"></div>
     </div>
@@ -235,7 +266,7 @@ footer button:hover{color:var(--ink)}
 </section>
 
 <footer>
-  <span id="saved">Progress saves in this browser.</span>
+  <span id="sync">Connecting…</span>
   <button id="export">Save a backup file</button>
   <button id="import">Load a backup file</button>
   <button id="reset">Clear all ticks</button>
@@ -407,6 +438,48 @@ const PLAN = [
 ]}
 ];
 
+/* ============ cloud sync ============ */
+const SB_URL='https://vinatceutouhinuxqgej.supabase.co';
+const SB_KEY='sb_publishable_J49djrBT3ELSnRDtwIsZ9w_4nbn8KtP';
+const ROW='bereket';
+const sbHeaders={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+let online=false, pushTimer=null;
+
+function status(text,cls){const el=document.getElementById('sync');el.textContent=text;el.className=cls||''}
+
+async function pull(){
+  const r=await fetch(`${SB_URL}/rest/v1/exam_progress?id=eq.${ROW}&select=data`,{headers:sbHeaders});
+  if(!r.ok)throw new Error(r.status);
+  const rows=await r.json();
+  return rows[0]?rows[0].data||{}:{};
+}
+async function push(){
+  const r=await fetch(`${SB_URL}/rest/v1/exam_progress?id=eq.${ROW}`,{
+    method:'PATCH',headers:{...sbHeaders,'Prefer':'return=minimal'},
+    body:JSON.stringify({data:done,updated_at:new Date().toISOString()})});
+  if(!r.ok)throw new Error(r.status);
+}
+function schedulePush(){
+  if(!online){status('Offline, saved on this device only','off');return}
+  status('Saving…');
+  clearTimeout(pushTimer);
+  pushTimer=setTimeout(async()=>{
+    try{await push();status('Saved, synced to your other devices','on')}
+    catch(e){online=false;status('Could not sync, saved on this device only','off')}
+  },500);
+}
+async function startSync(){
+  try{
+    const remote=await pull();
+    const local=done;
+    // first run on a device: keep whatever the cloud has, plus anything only here
+    done=Object.keys(remote).length?{...local,...remote}:local;
+    online=true;save();renderAll();
+    if(JSON.stringify(done)!==JSON.stringify(remote))await push();
+    status('Saved, synced to your other devices','on');
+  }catch(e){online=false;status('Offline, saved on this device only','off')}
+}
+
 /* ============ state ============ */
 const KEY='exam-plan-2026-09';
 const store=(()=>{try{localStorage.setItem('__t','1');localStorage.removeItem('__t');return localStorage;}
@@ -454,18 +527,28 @@ function dayIds(d){
 
 function renderDay(){
   const d=PLAN[current];
-  document.getElementById('d-title').textContent=d.label;
+  const ids=dayIds(d);
+  const dp=ids.length?Math.round(100*ids.filter(x=>done[x]).length/ids.length):0;
+  document.getElementById('d-title').innerHTML=`${d.label}<span class="meter${dp===100?' full':''}">${dp}%</span>`;
   document.getElementById('d-note').textContent=d.note;
   document.getElementById('timeline').innerHTML=d.blocks.map(b=>{
     if(b.lunch) return `<div class="break"><span class="clock">${b.from}</span>${b.text}</div>`;
+    const sub=b.kind==='h'?'History':b.kind==='b'?'Business':'Recall';
     return `<div class="slot ${b.kind}">
       <div class="clock">${b.from}<span>to ${b.to}</span></div>
       <div class="block">
-        <h3>${b.title}</h3>
+        <h3><span class="subj">${sub}</span>${b.title}</h3>
         ${(b.items||[]).map(taskRow).join('')}
       </div>
     </div>`;
   }).join('');
+}
+
+function updateDayMeter(){
+  const d=PLAN[current], ids=dayIds(d);
+  const dp=ids.length?Math.round(100*ids.filter(x=>done[x]).length/ids.length):0;
+  const m=document.querySelector('#d-title .meter');
+  if(m){m.textContent=dp+'%';m.classList.toggle('full',dp===100)}
 }
 
 function renderGroups(){
@@ -478,7 +561,7 @@ function renderGroups(){
     const n=arr.filter(([id])=>done[id]).length;
     const pct=Math.round(100*n/arr.length);
     return `<div class="group ${k}">
-      <div class="ghead"><h2>${name}</h2><span class="gcount">${n} of ${arr.length} done</span></div>
+      <div class="ghead"><h2>${name}<span class="gpct">${pct}%</span></h2><span class="gcount">${n} of ${arr.length} done</span></div>
       <div class="bar"><i style="width:${pct}%"></i></div>
       <div class="list">${arr.map(([id])=>taskRow({ref:id})).join('')}</div>
     </div>`;
@@ -491,13 +574,16 @@ function renderTop(){
   const bN=bAll.filter(([id])=>done[id]).length;
   document.getElementById('h-bar').style.width=(100*hN/HIST.length)+'%';
   document.getElementById('b-bar').style.width=(100*bN/bAll.length)+'%';
+  const hP=Math.round(100*hN/HIST.length), bP=Math.round(100*bN/bAll.length);
+  document.getElementById('h-big').innerHTML=hP+'<em>%</em>';
+  document.getElementById('b-big').innerHTML=bP+'<em>%</em>';
   document.getElementById('h-ratio').textContent=`${hN} of ${HIST.length} topics covered`;
   document.getElementById('b-ratio').textContent=`${bN} of ${bAll.length} chapters covered`;
   const days=iso=>{
     const now=new Date(); const ex=new Date(iso+'T09:00:00');
     return Math.max(0,Math.ceil((ex-now)/86400000));
   };
-  const set=(el,v)=>{document.getElementById(el).innerHTML=v+'<small>'+(v===1?'day':'days')+' left</small>'};
+  const set=(el,v)=>{document.getElementById(el).innerHTML=v+'<small>'+(v===1?'day left':'days left')+'</small>'};
   set('h-left',days('2026-09-15'));
   set('b-left',days('2026-09-16'));
 }
@@ -510,7 +596,7 @@ document.addEventListener('change',e=>{
   if(!cb)return;
   const id=cb.dataset.id;
   if(cb.checked)done[id]=1;else delete done[id];
-  save();renderTop();renderRail();
+  save();schedulePush();renderTop();renderRail();updateDayMeter();
   document.querySelectorAll(`input[data-id="${id}"]`).forEach(o=>o.checked=cb.checked);
   const g=document.getElementById('groups');
   if(!g.parentElement.classList.contains('hidden'))renderGroups();
@@ -533,7 +619,7 @@ tabs.forEach(([t,v])=>document.getElementById(t).addEventListener('click',()=>{
 
 document.getElementById('reset').addEventListener('click',()=>{
   if(!confirm('Clear every tick? This cannot be undone.'))return;
-  done={};save();renderAll();
+  done={};save();schedulePush();renderAll();
 });
 document.getElementById('export').addEventListener('click',()=>{
   const blob=new Blob([JSON.stringify(done)],{type:'application/json'});
@@ -545,12 +631,13 @@ document.getElementById('import').addEventListener('click',()=>document.getEleme
 document.getElementById('file').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=()=>{try{done=JSON.parse(r.result)||{};save();renderAll();}
-    catch(err){document.getElementById('saved').textContent='That file could not be read. Pick the exam-progress.json you saved earlier.';}};
+  r.onload=()=>{try{done=JSON.parse(r.result)||{};save();schedulePush();renderAll();}
+    catch(err){status('That file could not be read. Pick the exam-progress.json you saved earlier.','off');}};
   r.readAsText(f);
 });
 
 renderAll();
+startSync();
 </script>
 </body>
 </html>
