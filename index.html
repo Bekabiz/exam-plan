@@ -312,15 +312,12 @@ const HIST = [
   ['h27','The five likely question chains','Ch 25']
 ];
 const PERNA = [
-  ['pa','Topic A: five forces, value chain, RBV and VRIO','rebuilt topic','Very high'],
-  ['p9','Business-level strategy: generic strategies, pitfalls, life cycle','Ch 9','Highest'],
+  ['p9','Business-level strategy: generic strategies, five forces, value chain','Ch 9','Highest'],
   ['p8','Strategic management: creating competitive advantages','Ch 8','Very high'],
-  ['pb','Topic B: corporate strategy, diversification, M&A, alliances','rebuilt topic','Very high'],
-  ['pc','Topic C: business networks, the IMP approach','rebuilt topic','Very high'],
-  ['p12','Sources of innovation','Ch 12','High'],
-  ['p13','Types and patterns of innovation','Ch 13','High'],
   ['p6','Management and leadership','Ch 6','High'],
   ['p7','Structuring organizations for today\u2019s challenges','Ch 7','High'],
+  ['p12','Sources of innovation','Ch 12','High'],
+  ['p13','Types and patterns of innovation','Ch 13','High'],
   ['p1','Taking risks and making profits in a dynamic environment','Ch 1','Light'],
   ['p2','Understanding economics and how it affects business','Ch 2','Light'],
   ['p3','Doing business in global markets','Ch 3','Light'],
@@ -342,7 +339,7 @@ const ANC = [
 ];
 const TITLE = {};
 [['H',HIST],['P',PERNA],['A',ANC]].forEach(([,arr])=>arr.forEach(([id,t,ref,pri])=>TITLE[id]={t,ref,pri}));
-const CODE = id => id[0]!=='p' ? (id[0]==='h'?'H'+id.slice(1):'A'+id.slice(1)) : (isNaN(id[1]) ? 'Topic '+id[1].toUpperCase() : 'P'+id.slice(1));
+const CODE = id => id[0]==='h' ? 'H'+id.slice(1) : id[0]==='p' ? 'P'+id.slice(1) : 'A'+id.slice(1);
 const KIND = id => id[0]==='h' ? 'h' : 'b';
 
 /* ============ the nine days ============ */
@@ -350,18 +347,17 @@ const T = (id,text,kind)=>({id,text,kind:kind||'x'});
 const C = id => ({ref:id});
 
 const PLAN = [
-{date:'2026-09-08',dow:'Tue',label:'Tuesday 8 September',note:'Half a day is left. Start straight on Topic A, because chapter 9 cannot be studied without it and the guide puts the two together at the top of the syllabus.',blocks:[
+{date:'2026-09-08',dow:'Tue',label:'Tuesday 8 September',note:'Set-up evening. Learn how the two guides are built, then read the first Perna chapter.',blocks:[
   {from:'20:00',to:'20:30',kind:'b',title:'How the guides work',items:[
-    T('s1','Read the how-to-use pages of Part A and Part B: definition boxes, answer skeletons, cross-links','b'),
-    T('s2','Read the syllabus priorities page of Part B','b')]},
-  {from:'20:30',to:'22:00',kind:'b',title:'Perna, the model behind everything',items:[C('pa')]}
+    T('s1','Read the how-to-use pages of Part A and Part B: definition boxes, answer skeletons, cross-links','b')]},
+  {from:'20:30',to:'22:00',kind:'b',title:'Perna, first chapter',items:[C('p1')]}
 ]},
 
-{date:'2026-09-09',dow:'Wed',label:'Wednesday 9 September',note:'Chapter 9 is the single most examinable chapter of the half. It gets both morning blocks, nothing else.',blocks:[
+{date:'2026-09-09',dow:'Wed',label:'Wednesday 9 September',note:'Chapter 9 is the single most examinable chapter of the Perna half, so it gets both morning blocks and nothing else. The five forces and the value chain are inside it, exhibits 5.3 and 5.4.',blocks:[
   {from:'10:00',to:'11:30',kind:'b',title:'Perna, the key chapter',items:[C('p9')]},
   {from:'11:45',to:'13:30',kind:'b',title:'Perna, chapter 9 finished',items:[
     T('o09','Each generic strategy against each of the five forces, out loud','b')]},
-  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside. Do not read in this gap, the afternoon block depends on it.'},
+  {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside. Leave the library, the afternoon block depends on it.'},
   {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a1')]},
   {from:'17:30',to:'19:30',kind:'h',title:'History, Part I',items:[C('h1'),C('h2'),C('h3')]},
   {from:'20:30',to:'21:15',kind:'x',title:'Oral practice, out loud',items:[
@@ -369,46 +365,46 @@ const PLAN = [
     T('r09b','Business: the chapter 9 answer skeleton, no notes')]}
 ]},
 
-{date:'2026-09-10',dow:'Thu',label:'Thursday 10 September',note:'Chapter 8 gives the process, Topic B gives the corporate level above it. Both sit just under chapter 9 in weight.',blocks:[
+{date:'2026-09-10',dow:'Thu',label:'Thursday 10 September',note:'Chapter 8 gives the strategy process that chapter 9 sits inside. Chapter 6 starts the management block.',blocks:[
   {from:'10:00',to:'11:30',kind:'b',title:'Perna, strategy process',items:[C('p8')]},
-  {from:'11:45',to:'13:30',kind:'b',title:'Perna, corporate level',items:[C('pb')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, management',items:[C('p6')]},
   {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
   {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a2'),C('a3')]},
   {from:'17:30',to:'19:30',kind:'h',title:'History, Part I finished and Part II started',items:[C('h4'),C('h5'),C('h6'),C('h7')]},
   {from:'20:30',to:'21:15',kind:'x',title:'Oral practice, out loud',items:[
     T('r10h','History: the three rotations and the manor exchange'),
-    T('r10b','Business: diversification and vertical integration, with one example each')]}
+    T('r10b','Business: the strategic management process, start to finish')]}
 ]},
 
-{date:'2026-09-11',dow:'Fri',label:'Friday 11 September',note:'Topic C is Perna\u2019s own IMP research field, so the guide says he will almost certainly ask it. Give it your freshest block.',blocks:[
-  {from:'10:00',to:'11:30',kind:'b',title:'Perna, his own research field',items:[C('pc')]},
+{date:'2026-09-11',dow:'Fri',label:'Friday 11 September',note:'Organisation and the two innovation chapters. After today the heavy Perna material is behind you.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, organisation',items:[C('p7')]},
   {from:'11:45',to:'13:30',kind:'b',title:'Perna, innovation',items:[C('p12'),C('p13')]},
   {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
   {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a4'),C('a5')]},
   {from:'17:30',to:'19:30',kind:'h',title:'History, Part II',items:[C('h8'),C('h9'),C('h10'),C('h11')]},
   {from:'20:30',to:'21:15',kind:'x',title:'Oral practice, out loud',items:[
     T('r11h','History: the mill as universal machine, and Kay to the factory'),
-    T('r11b','Business: business networks against the five forces, the two opposite views')]}
+    T('r11b','Business: radical against incremental innovation, with one example each')]}
 ]},
 
-{date:'2026-09-12',dow:'Sat',label:'Saturday 12 September',note:'The high-weight material is behind you. From here the chapters are lighter, so you can take three in a block.',blocks:[
-  {from:'10:00',to:'11:30',kind:'b',title:'Perna, management and organisation',items:[C('p6'),C('p7')]},
-  {from:'11:45',to:'13:30',kind:'b',title:'Perna, the light chapters',items:[C('p1'),C('p2'),C('p3')]},
+{date:'2026-09-12',dow:'Sat',label:'Saturday 12 September',note:'The light chapters start. You can take three or four in a block now.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, the light chapters',items:[C('p1'),C('p2')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna, the light chapters',items:[C('p3'),C('p10')]},
   {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
   {from:'15:30',to:'17:15',kind:'b',title:'Ancillai',items:[C('a6'),C('a7')]},
   {from:'17:30',to:'19:30',kind:'h',title:'History, Part III',items:[C('h12'),C('h13'),C('h14')]},
   {from:'20:30',to:'21:15',kind:'x',title:'Oral practice, out loud',items:[
     T('r12h','History: cannons, timber crisis, coke 1709, Newcomen 1712, Watt 1769, Cort 1784, Rocket 1829'),
-    T('r12b','Business: the strategic management process, start to finish')]}
+    T('r12b','Business: the four legal forms of a business and the trade-offs')]}
 ]},
 
-{date:'2026-09-13',dow:'Sun',label:'Sunday 13 September',note:'Last Business day before the History push. Everything in both halves must be read once by tonight.',blocks:[
-  {from:'10:00',to:'11:30',kind:'b',title:'Perna, the light chapters',items:[C('p4'),C('p5')]},
-  {from:'11:45',to:'13:30',kind:'b',title:'Perna, the last three',items:[C('p10'),C('p11'),C('p14')]},
+{date:'2026-09-13',dow:'Sun',label:'Sunday 13 September',note:'Last Business day before the History push. All 14 Perna chapters and all 8 Ancillai chapters must be read once by tonight.',blocks:[
+  {from:'10:00',to:'11:30',kind:'b',title:'Perna, the last four',items:[C('p4'),C('p5')]},
+  {from:'11:45',to:'13:30',kind:'b',title:'Perna finished',items:[C('p11'),C('p14')]},
   {lunch:true,from:'13:30',to:'15:30',text:'Lunch and a walk outside.'},
   {from:'15:30',to:'17:15',kind:'b',title:'Ancillai finished, then the cross-links',items:[C('a8'),
     T('r13c','Read all 8 Ancillai skeletons in a row','b'),
-    T('r13d','The five cross-links between the two halves, from the guide table','b')]},
+    T('r13d','The cross-links between the two halves, from the guide table','b')]},
   {from:'17:30',to:'19:30',kind:'h',title:'History, Part IV',items:[C('h15'),C('h16'),C('h17'),C('h18')]},
   {from:'20:30',to:'21:15',kind:'x',title:'Oral practice, out loud',items:[
     T('r13h','History: draw the 2IR diagram from memory on a blank sheet'),
@@ -426,7 +422,7 @@ const PLAN = [
     T('r14b','In bed by 23:00')]}
 ]},
 
-{date:'2026-09-15',dow:'Tue',label:'Tuesday 15 September, History exam',note:'Nothing new this morning. After the exam, rest two hours, then move everything to Business, highest priority material first. Adjust the times if your call time is different.',exam:true,blocks:[
+{date:'2026-09-15',dow:'Tue',label:'Tuesday 15 September, History exam',note:'Nothing new this morning. After the exam, rest two hours, then move everything to Business, heaviest chapters first. Adjust the times if your call time is different.',exam:true,blocks:[
   {from:'07:30',to:'09:00',kind:'h',title:'Last look, nothing new',items:[
     T('e15a','Read the one-page mega summary','h'),
     T('e15b','Read the five question chains','h')]},
@@ -434,19 +430,19 @@ const PLAN = [
   {lunch:true,from:'13:00',to:'15:30',text:'Eat, rest, no studying. You have one more exam and it needs a fresh head.'},
   {from:'15:30',to:'17:15',kind:'b',title:'Ancillai, she examines you first',items:[
     T('e15d','All 8 answer skeletons out loud, the canvas last','b')]},
-  {from:'17:30',to:'19:30',kind:'b',title:'Perna, the top of the syllabus',items:[
-    T('e15e','Topic A, chapter 9 and chapter 8, out loud','b')]},
+  {from:'17:30',to:'19:30',kind:'b',title:'Perna, the heavy chapters',items:[
+    T('e15e','Chapters 9, 8, 6 and 7, out loud','b')]},
   {from:'20:30',to:'21:30',kind:'b',title:'At home',items:[
-    T('e15f','Topic B and Topic C, out loud','b'),
+    T('e15f','Chapters 12, 13 and 14','b'),
     T('e15g','Your three weakest chapters from Sunday','b')]}
 ]},
 
 {date:'2026-09-16',dow:'Wed',label:'Wednesday 16 September, Business exam',note:'Chiara examines first and passes you to Andrea, so start with her half. Skeletons only, no new reading.',exam:true,blocks:[
   {from:'07:00',to:'08:30',kind:'b',title:'Ancillai skeletons',items:[
     T('e16a','All 8 skeletons out loud, one minute each','b'),
-    T('e16b','The five cross-links between the two halves','b')]},
+    T('e16b','The cross-links between the two halves','b')]},
   {from:'08:30',to:'09:30',kind:'b',title:'Perna, final pass',items:[
-    T('e16c','Topic A, chapter 9, chapter 8, Topic B, Topic C, one minute each','b')]},
+    T('e16c','All 14 chapter titles down the list, one sentence each','b')]},
   {from:'09:30',to:'13:00',kind:'x',title:'Business oral exam',items:[T('e16d','Both halves done')]}
 ]}
 ];
@@ -569,7 +565,7 @@ function updateDayMeter(){
 function renderGroups(){
   const g=[
     ['h','History, 27 topics',HIST],
-    ['b','Perna, in exam priority order',PERNA],
+    ['b','Perna, 14 printed chapters in exam order',PERNA],
     ['b','Ancillai, 8 chapters',ANC]
   ];
   document.getElementById('groups').innerHTML=g.map(([k,name,arr])=>{
